@@ -4,16 +4,16 @@ require 'uk_mail/soap_service/authentication'
 module UKMail
   module Service
     class AuthenticationService < Base
-      def soap_namespace
+      def soap
         SoapService::Authentication
       end
 
       def soap_service
-        soap_namespace::IUKMAuthenticationService
+        soap::IUKMAuthenticationService
       end
 
       def login(params = {})
-        service.login(soap_namespace::Login.new(soap_namespace::LoginWebRequest.new(
+        service.login(soap::Login.new(soap::LoginWebRequest.new(
 
           params[:password],
           params[:username]

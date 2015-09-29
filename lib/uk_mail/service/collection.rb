@@ -4,16 +4,16 @@ require 'uk_mail/session'
 module UKMail
   module Service
     class CollectionService < Base
-      def soap_namespace
+      def soap
         SoapService::Collection
       end
 
       def soap_service
-        soap_namespace::IUKMCollectionService
+        soap::IUKMCollectionService
       end
 
       def book_collection(params = {})
-        service.bookCollection(soap_namespace::BookCollection.new(soap_namespace::BookCollectionWebRequest.new(
+        service.bookCollection(soap::BookCollection.new(soap::AddCollectionWebRequest.new(
 
           @session.auth_token,
           params[:username],

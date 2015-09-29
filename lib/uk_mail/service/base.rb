@@ -7,10 +7,6 @@ module UKMail
         @session = session
       end
 
-      def soap_namespace
-        raise NotImplementedError
-      end
-
       def soap_service
         raise NotImplementedError
       end
