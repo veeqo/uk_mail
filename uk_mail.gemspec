@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Luke Farmer"]
   spec.email         = ["luke.e.farmer@gmail.com"]
   spec.summary       = %q{UK Mail API for Ruby}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
