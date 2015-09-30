@@ -1,5 +1,3 @@
-require 'uk_mail/session'
-
 module UKMail
   module Service
     class Base

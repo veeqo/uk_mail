@@ -1,6 +1,3 @@
-require 'uk_mail/service/base'
-require 'uk_mail/soap_service/authentication'
-
 module UKMail
   module Service
     class AuthenticationService < Base

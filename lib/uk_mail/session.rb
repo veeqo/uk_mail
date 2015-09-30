@@ -1,5 +1,3 @@
-require 'uk_mail/service/authentication'
-
 module UKMail
   class Session
     def login(username, password)
