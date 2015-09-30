@@ -5,6 +5,8 @@ module UKMail
         @session = session
       end
 
+      protected
+
       def soap_service
         raise NotImplementedError
       end

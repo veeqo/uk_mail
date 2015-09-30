@@ -1,21 +1,13 @@
 module UKMail
   module Service
     class ConsignmentService < Base
-      def soap
-        SoapService::Consignment
-      end
-
-      def soap_service
-        soap::IUKMConsignmentService
-      end
-
       def add_domestic_consignment(params = {})
         service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddDomesticConsignmentWebRequest.new(
 
           @session.auth_token,
           params[:username],
           params[:account_number],
-          params[:address],
+          address_web_model(params[:address]),
           params[:alternative_ref],
           params[:business_name],
           params[:collection_job_number],
@@ -50,7 +42,7 @@ module UKMail
           @session.auth_token,
           params[:username],
           params[:account_number],
-          params[:address],
+          address_web_model(params[:address]),
           params[:alternative_ref],
           params[:business_name],
           params[:collection_job_number],
@@ -91,7 +83,7 @@ module UKMail
           params[:collection_job_number],
           params[:contact_name],
           params[:business_name],
-          params[:address],
+          packet_address_web_model(params[:address]),
           params[:customers_ref],
           params[:alternative_ref],
           params[:weight_in_grams],
@@ -102,6 +94,39 @@ module UKMail
           params[:delivery_message_2]
 
         ))).addPacketConsignmentResult
+      end
+
+      protected
+
+      def soap
+        SoapService::Consignment
+      end
+
+      def soap_service
+        soap::IUKMConsignmentService
+      end
+
+      def address_web_model(address)
+        soap::AddressWebModel.new(
+          address[:address_1],
+          address[:address_2],
+          address[:address_3],
+          address[:country_code],
+          address[:county],
+          address[:postal_town],
+          address[:postcode]
+        )
+      end
+
+      def packet_address_web_model(address)
+        soap::PacketAddressWebModel.new(
+          address[:address_1],
+          address[:address_2],
+          address[:address_3],
+          address[:county],
+          address[:postal_town],
+          address[:postcode]
+        )
       end
     end
   end

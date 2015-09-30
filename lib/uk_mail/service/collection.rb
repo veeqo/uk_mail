@@ -1,14 +1,6 @@
 module UKMail
   module Service
     class CollectionService < Base
-      def soap
-        SoapService::Collection
-      end
-
-      def soap_service
-        soap::IUKMCollectionService
-      end
-
       def book_collection(params = {})
         service.bookCollection(soap::BookCollection.new(soap::AddCollectionWebRequest.new(
 
@@ -22,6 +14,16 @@ module UKMail
           params[:special_instructions]
 
         ))).bookCollectionResult
+      end
+
+      protected
+
+      def soap
+        SoapService::Collection
+      end
+
+      def soap_service
+        soap::IUKMCollectionService
       end
     end
   end
