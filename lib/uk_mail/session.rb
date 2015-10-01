@@ -1,5 +1,9 @@
 module UKMail
   class Session
+    def initialize(_auth_token = nil)
+      @auth_token = _auth_token
+    end
+
     def login(username, password)
       login_result = Service::AuthenticationService.new(nil).login(username: username, password: password)
       @auth_token = login_result.authenticationToken
