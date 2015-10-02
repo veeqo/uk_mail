@@ -5,7 +5,7 @@ module UKMail
     end
 
     def login(username, password)
-      login_result = Service::AuthenticationService.new(nil).login(username: username, password: password)
+      login_result = Service::Authentication.new(nil).login(username: username, password: password)
       @auth_token = login_result.authenticationToken
       login_result
     end

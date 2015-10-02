@@ -1,6 +1,6 @@
 module UKMail
   module Service
-    class ConsignmentService < Base
+    class Consignment < Base
       def add_domestic_consignment(params = {})
         service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddDomesticConsignmentWebRequest.new(
 

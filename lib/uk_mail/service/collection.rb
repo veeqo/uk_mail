@@ -1,6 +1,6 @@
 module UKMail
   module Service
-    class CollectionService < Base
+    class Collection < Base
       def book_collection(params = {})
         service.bookCollection(soap::BookCollection.new(soap::AddCollectionWebRequest.new(
 

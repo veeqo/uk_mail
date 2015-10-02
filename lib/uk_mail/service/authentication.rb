@@ -1,6 +1,6 @@
 module UKMail
   module Service
-    class AuthenticationService < Base
+    class Authentication < Base
       def login(params = {})
         service.login(soap::Login.new(soap::LoginWebRequest.new(
 
