@@ -51,9 +51,10 @@ module UKMail
     def self.row_from_postcode(postcode)
       postcode = postcode_as_key(postcode)
       postcode_index = column_index(:postcode)
+      path = UKMail.config.postcode_dat_path
 
       # TODO: This can be much faster (the list is sorted by postcode)
-      row_array = CSV.foreach('Postcode.dat', col_sep: '|') do |row|
+      row_array = CSV.foreach(path, col_sep: '|') do |row|
         break row if row[postcode_index] == postcode
       end
 
@@ -76,8 +77,10 @@ module UKMail
         @array = row_array
       end
 
-      def postcode
-        @array[PostcodeData.column_index(:postcode)]
+      COLUMN_INDICES.each do |column_sym|
+        define_method(column_sym) do
+          @array[PostcodeData.column_index(column_sym)]
+        end
       end
 
       def negated_services

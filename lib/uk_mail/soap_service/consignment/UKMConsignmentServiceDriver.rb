@@ -77,8 +77,8 @@ class IUKMConsignmentService < ::SOAP::RPC::Driver
     ]
   ]
 
-  def initialize(env: :test)
-    endpoint_url = (env == :production ? LIVE_URL : TEST_URL)
+  def initialize
+    endpoint_url = (UKMail.config.env == :production ? LIVE_URL : TEST_URL)
     super(endpoint_url, nil)
     self.mapping_registry = UKMConsignmentServiceMappingRegistry::EncodedRegistry
     self.literal_mapping_registry = UKMConsignmentServiceMappingRegistry::LiteralRegistry
