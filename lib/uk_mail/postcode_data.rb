@@ -49,17 +49,17 @@ module UKMail
     end
 
     def self.row_from_postcode(postcode)
-      postcode = postcode_as_key(postcode)
+      postcode_key = postcode_as_key(postcode)
       postcode_index = column_index(:postcode)
       path = UKMail.config.postcode_dat_path
 
       # TODO: This can be much faster (the list is sorted by postcode)
       row_array = CSV.foreach(path, col_sep: '|') do |row|
-        break row if row[postcode_index] == postcode
+        break row if row[postcode_index] == postcode_key
       end
 
       if row_array.nil?
-        raise(RuntimeError, "Postcode '#{postcode}' not found in UK Mail postcode table (.dat)")
+        raise(RuntimeError, "Postcode '#{postcode.to_s.upcase}' is not supported by UK Mail.")
       end
 
       Row.new(row_array)
