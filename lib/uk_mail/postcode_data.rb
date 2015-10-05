@@ -2,7 +2,7 @@ require 'csv'
 
 module UKMail
   module PostcodeData
-    COLUMN_INDICES = [
+    COLUMNS = [
       :hub_letter,
       :town,
       :county,
@@ -45,7 +45,7 @@ module UKMail
     }
 
     def self.column_index(column)
-      COLUMN_INDICES.index(column.to_sym)
+      COLUMNS.index(column.to_sym)
     end
 
     def self.row_from_postcode(postcode)
@@ -77,7 +77,7 @@ module UKMail
         @array = row_array
       end
 
-      COLUMN_INDICES.each do |column_sym|
+      COLUMNS.each do |column_sym|
         define_method(column_sym) do
           @array[PostcodeData.column_index(column_sym)]
         end
