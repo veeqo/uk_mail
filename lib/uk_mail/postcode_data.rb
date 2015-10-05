@@ -2,8 +2,6 @@ require 'csv'
 
 module UKMail
   module PostcodeData
-    MASTER = CSV.read('Postcode.dat', col_sep: '|') # TODO: Get this file from config
-
     COLUMN_INDICES = [
       :hub_letter,
       :town,
@@ -27,7 +25,7 @@ module UKMail
       :service_saturday,
       :service_saturday_9am,
       :service_saturday_10_30am,
-      :pallets,
+      :service_pallets,
       :courier_depot_code
     ]
 
@@ -42,7 +40,8 @@ module UKMail
       service_home_evening:     [], # /
       service_saturday:         ['Saturday'],
       service_saturday_9am:     ['Saturday 09:00'],
-      service_saturday_10_30am: ['Saturday 10:30']
+      service_saturday_10_30am: ['Saturday 10:30'],
+      service_pallets:          ['Pallet 24 Hours', 'Pallet 48 Hours']
     }
 
     def self.column_index(column)
@@ -51,20 +50,34 @@ module UKMail
 
     def self.row_from_postcode(postcode)
       postcode = postcode_as_key(postcode)
-      row_array = MASTER.find { |row| row[column_index(:postcode)] == postcode }
+      postcode_index = column_index(:postcode)
+
+      # TODO: This can be much faster (the list is sorted by postcode)
+      row_array = CSV.foreach('Postcode.dat', col_sep: '|') do |row|
+        break row if row[postcode_index] == postcode
+      end
+
+      if row_array.nil?
+        raise(RuntimeError, "Postcode '#{postcode}' not found in UK Mail postcode table (.dat)")
+      end
+
       Row.new(row_array)
     end
 
     def self.postcode_as_key(uk_postcode)
       uk_postcode.delete!(' ')
       uk_postcode.upcase!
-      inner = uk_postcode.slice!(-3,3)
-      uk_postcode[0..3].ljust(4,' ') + inner[0]
+      inner = uk_postcode.length < 5 ? ' ' : uk_postcode.slice!(-3,3)[0]
+      uk_postcode[0..3].ljust(4,' ') + inner
     end
 
     class Row
       def initialize(row_array)
         @array = row_array
+      end
+
+      def postcode
+        @array[PostcodeData.column_index(:postcode)]
       end
 
       def negated_services
