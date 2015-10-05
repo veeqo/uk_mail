@@ -65,11 +65,10 @@ module UKMail
       Row.new(row_array)
     end
 
-    def self.postcode_as_key(uk_postcode)
-      uk_postcode.delete!(' ')
-      uk_postcode.upcase!
-      inner = uk_postcode.length < 5 ? ' ' : uk_postcode.slice!(-3,3)[0]
-      uk_postcode[0..3].ljust(4,' ') + inner
+    def self.postcode_as_key(postcode)
+      postcode = postcode.delete(' ').upcase
+      inner = postcode.length < 5 ? ' ' : postcode.slice!(-3,3)[0]
+      postcode[0..3].ljust(4,' ') + inner
     end
 
     class Row

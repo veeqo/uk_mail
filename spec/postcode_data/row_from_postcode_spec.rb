@@ -4,10 +4,10 @@ describe UKMail::PostcodeData, '#row_from_postcode' do
   subject { UKMail::PostcodeData.row_from_postcode(postcode) }
 
   context "when the postcode exists" do
-    let(:postcode) { 'SA1 1DP' }
+    let(:postcode) { 'AB31 3DP' }
 
     it 'should return the correct row' do
-      expect(subject.postcode).to eq 'SA1 1'
+      expect(subject.postcode).to eq 'AB313'
     end
   end
 
