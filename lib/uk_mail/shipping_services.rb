@@ -4,7 +4,7 @@ module UKMail
       services = SERVICES[parcel_type]
 
       if services.nil?
-        raise(RuntimeError, "Parcel type '#{parcel_type.to_s}' is not supported by UK Mail.")
+        raise(RuntimeError, "Parcel type '#{parcel_type.to_s}' is not supported.")
       end
 
       negated = PostcodeData.row_from_postcode(postcode).negated_services
@@ -107,7 +107,7 @@ module UKMail
     def self.service_index(delivery_type)
       index = DELIVERY_TYPES.index(delivery_type.to_sym)
       if index.nil?
-        raise(RuntimeError, "Delivery type '#{delivery_type.to_s}' is not supported by UK Mail.")
+        raise(RuntimeError, "Delivery type '#{delivery_type.to_s}' is not supported.")
       end
       index
     end
