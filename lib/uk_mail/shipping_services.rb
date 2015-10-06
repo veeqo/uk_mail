@@ -1,6 +1,31 @@
 module UKMail
   module ShippingServices
-    services = {
+    def self.list(parcel_type, delivery_type, postcode)
+      services = SERVICES[parcel_type]
+
+      if services.nil?
+        raise(RuntimeError, "Parcel type '#{parcel_type.to_s}' is not supported by UK Mail.")
+      end
+
+      negated = PostcodeData.row_from_postcode(postcode).negated_services
+
+      result = []
+      services.each do |key,val|
+        next if negated.include?(key)
+        service_id = val[service_index(delivery_type)]
+        next if service_id.nil?
+        result << ShippingService.new(key, service_id)
+      end
+      result
+    end
+
+    DELIVERY_TYPES = [
+      :signature_to_address_and_neighbor,
+      :signature_to_address_only,
+      :leave_safe_or_signature_to_neighbor
+    ]
+
+    SERVICES = {
       parcels: {
         'Next Day'               => [  1, 220, 210],
         'Next Day 09:00'         => [nil,   3, nil],
@@ -78,5 +103,23 @@ module UKMail
         '72 Hour'                => [nil, nil,  72],
       }
     }
+
+    def self.service_index(delivery_type)
+      index = DELIVERY_TYPES.index(delivery_type.to_sym)
+      if index.nil?
+        raise(RuntimeError, "Delivery type '#{delivery_type.to_s}' is not supported by UK Mail.")
+      end
+      index
+    end
+
+    class ShippingService
+      attr_accessor :name
+      attr_accessor :id
+
+      def initialize(name, id)
+        @name = name
+        @id = id
+      end
+    end
   end
 end
