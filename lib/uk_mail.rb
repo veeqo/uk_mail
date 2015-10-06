@@ -23,11 +23,14 @@ module UKMail
 
   class Configuration
     attr_accessor :env
-    attr_accessor :postcode_dat_path
+    attr_accessor :postcode_data_path
+    attr_accessor :service_data_path
   end
 
   configure do |config|
-      config.env = :test
-      config.postcode_dat_path = 'Postcode.dat'
-    end
+    base_path = File.dirname(__FILE__)
+    config.env = :test
+    config.postcode_data_path = 'Postcode.dat'
+    config.service_data_path = base_path + '/uk_mail/services.yml'
+  end
 end

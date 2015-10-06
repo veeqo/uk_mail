@@ -7,7 +7,7 @@ describe UKMail::ShippingServices, '#list' do
   subject { UKMail::ShippingServices.list(parcel_type, delivery_type, postcode) }
 
   context "when the parcel type doesn't exist" do
-    let(:parcel_type) { :arglebargle }
+    let(:parcel_type) { 'arglebargle' }
 
     it "raises an exception" do
       expect{subject}.to raise_error(RuntimeError)
@@ -15,10 +15,10 @@ describe UKMail::ShippingServices, '#list' do
   end
 
   context "when the parcel type exists" do
-    let(:parcel_type) { :bagit_medium }
+    let(:parcel_type) { 'Bagit Medium' }
 
     context "when the delivery type doesn't exist" do
-      let(:delivery_type) { :foofaraw }
+      let(:delivery_type) { 'foofaraw' }
 
       it "raises an exception" do
         expect{subject}.to raise_error(RuntimeError)
@@ -26,7 +26,7 @@ describe UKMail::ShippingServices, '#list' do
     end
 
     context "when the delivery type exists" do
-      let(:delivery_type) { :signature_to_address_and_neighbor }
+      let(:delivery_type) { 'Signature Service to the specified address & neighbour' }
 
       it "returns the correct set of available services" do
         expect(subject.length).to eq(4)

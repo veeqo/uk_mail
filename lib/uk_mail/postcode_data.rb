@@ -51,7 +51,7 @@ module UKMail
     def self.row_from_postcode(postcode)
       postcode_key = postcode_as_key(postcode)
       postcode_index = column_index(:postcode)
-      path = UKMail.config.postcode_dat_path
+      path = UKMail.config.postcode_data_path
 
       # TODO: This can be much faster (the list is sorted by postcode)
       row_array = CSV.foreach(path, col_sep: '|') do |row|

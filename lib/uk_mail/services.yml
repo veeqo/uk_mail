@@ -1,0 +1,81 @@
+delivery_types:
+- 'Signature Service to the specified address & neighbour'
+- 'Signature Service to the specified address only'
+- 'Leave Safe at specified address or signature service to neighbour'
+
+services:
+  'Parcels':
+    'Next Day'               : [  1, 220, 210]
+    'Next Day 09:00'         : [  ~,   3,   ~]
+    'Next Day 10:30'         : [  9, 222, 212]
+    'Next Day 12:00'         : [  2, 221, 211]
+    'Afternoon'              : [ 77, 223, 213]
+    'Evening'                : [ 78, 224, 214]
+    'Saturday'               : [  4, 225, 215]
+    'Saturday 09:00'         : [  ~,   5,   ~]
+    'Saturday 10:30'         : [  7, 226, 216]
+    'Timed Delivery'         : [  ~,   6,   ~]
+    '48 Hour'                : [ 48,   ~,   ~]
+    '48 Hour Pack'           : [ 75,   ~,   ~]
+    '72 Hour'                : [  ~,   ~,  72]
+    'Pallet 24 Hours'        : [  ~,  97,   ~]
+    'Pallet 48 Hours'        : [  ~,  98,   ~]
+    'Collection Point'       : [  ~,  90,   ~]
+    'Collection Point 09:00' : [  ~,  92,   ~]
+    'Collection Point 12:00' : [  ~,  91,   ~]
+
+  'Bagit Small':
+    'Next Day'               : [ 40, 240, 230]
+    'Next Day 09:00'         : [  ~,  42,   ~]
+    'Next Day 10:30'         : [ 49, 242, 232]
+    'Next Day 12:00'         : [ 41, 241, 231]
+    'Afternoon'              : [243,   ~, 233]
+    'Evening'                : [244,   ~, 234]
+    'Saturday'               : [ 43, 245, 235]
+    'Saturday 09:00'         : [  ~,  45,   ~]
+    'Saturday 10:30'         : [ 46, 246, 236]
+    'Timed Delivery'         : [  ~,  45,   ~]
+    '48 Hour'                : [ 48,   ~,   ~]
+    '72 Hour'                : [  ~,   ~,  72]
+
+  'Bagit Medium':
+    'Next Day'               : [ 30, 250,   ~]
+    'Next Day 09:00'         : [  ~,  32,   ~]
+    'Next Day 10:30'         : [ 39, 252,   ~]
+    'Next Day 12:00'         : [ 31, 251,   ~]
+    'Afternoon'              : [253,   ~,   ~]
+    'Evening'                : [254,   ~,   ~]
+    'Saturday'               : [ 33, 255,   ~]
+    'Saturday 09:00'         : [  ~,  34,   ~]
+    'Saturday 10:30'         : [ 36, 256,   ~]
+    'Timed Delivery'         : [  ~,  35,   ~]
+    '48 Hour'                : [ 48,   ~,   ~]
+    '72 Hour'                : [  ~,   ~,  72]
+
+  'Bagit Large':
+    'Next Day'               : [ 20, 260,   ~]
+    'Next Day 09:00'         : [  ~,  32,   ~]
+    'Next Day 10:30'         : [ 39, 252,   ~]
+    'Next Day 12:00'         : [ 31, 251,   ~]
+    'Afternoon'              : [253,   ~,   ~]
+    'Evening'                : [254,   ~,   ~]
+    'Saturday'               : [ 33, 255,   ~]
+    'Saturday 09:00'         : [  ~,  34,   ~]
+    'Saturday 10:30'         : [ 36, 256,   ~]
+    'Timed Delivery'         : [  ~,  25,   ~]
+    '48 Hour'                : [ 48,   ~,   ~]
+    '72 Hour'                : [  ~,   ~,  72]
+
+  'Bagit XL':
+    'Next Day'               : [ 10, 270,   ~]
+    'Next Day 09:00'         : [  ~,  12,   ~]
+    'Next Day 10:30'         : [ 19, 272,   ~]
+    'Next Day 12:00'         : [ 11, 271,   ~]
+    'Afternoon'              : [273,   ~,   ~]
+    'Evening'                : [274,   ~,   ~]
+    'Saturday'               : [ 13, 275,   ~]
+    'Saturday 09:00'         : [  ~,  14,   ~]
+    'Saturday 10:30'         : [ 16, 276,   ~]
+    'Timed Delivery'         : [  ~,  15,   ~]
+    '48 Hour'                : [ 48,   ~,   ~]
+    '72 Hour'                : [  ~,   ~,  72]
