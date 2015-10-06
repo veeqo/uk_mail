@@ -6,7 +6,7 @@ describe UKMail::PostcodeData, '#row_from_postcode' do
   context "when the postcode exists" do
     let(:postcode) { 'AB31 3DP' }
 
-    it 'should return the correct row' do
+    it "returns the correct row" do
       expect(subject.postcode).to eq 'AB313'
     end
   end
@@ -14,7 +14,7 @@ describe UKMail::PostcodeData, '#row_from_postcode' do
   context "when the postcode doesn't exist" do
     let(:postcode) { 'XY987XY' }
 
-    it "should raise an exception" do
+    it "raises an exception" do
       expect{subject}.to raise_error(RuntimeError)
     end
   end
