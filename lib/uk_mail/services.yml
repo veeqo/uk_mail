@@ -1,3 +1,5 @@
+version: '1.20'
+
 delivery_types:
 - 'Signature Service to the specified address & neighbour'
 - 'Signature Service to the specified address only'

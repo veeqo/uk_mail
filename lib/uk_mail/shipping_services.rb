@@ -25,6 +25,10 @@ module UKMail
       result
     end
 
+    def self.api_version
+      load_service_data['version']
+    end
+
     private
 
     def self.service_index(service_data, delivery_type)
