@@ -20,22 +20,24 @@ describe UKMail::Service, '#parameters' do
     let(:args) { [
         { value: 1 },
         { value: "two", default: "zero" },
-        { value: nil, default: 5 }
+        { value: nil, default: 5 },
+        { value: "", default: "hi" }
     ] }
-    let(:result) { [ 1, "two", 5 ] }
+    let(:result) { [ 1, "two", 5, "hi" ] }
 
     it { is_expected.to eq(result) }
   end
 
-  context "when required args are not provided" do # TODO: Failing
+  context "when required args are not provided" do
     let(:args) { [
-        { value: 1 },
-        { value: nil },
-        { value: "" }
+        { name: 'First',  value: 1 },
+        { name: 'Second', value: nil },
+        { name: 'Third',  value: "" }
     ] }
 
-    it "should raise an exception" do
-      expect{subject}.to raise_error(RuntimeError)
+    it "raises an exception" do
+      message = "The following required fields are missing or empty: Second, Third"
+      expect{subject}.to raise_error(UKMail::ValidationError, message)
     end
   end
 end

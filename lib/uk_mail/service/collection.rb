@@ -5,14 +5,14 @@ module UKMail
         service.bookCollection(soap::BookCollection.new(soap::AddCollectionWebRequest.new(
 
           *parameters(
-            {  value: @session.auth_token                 },
-            {  value: params[:username]                   },
-            {  value: params[:account_number]             },
-            {  value: params[:closed_for_lunch]           },
-            {  value: params[:earliest_time]              },
-            {  value: params[:latest_time]                },
-            {  value: params[:requested_collection_date]  },
-            {  value: params[:special_instructions],      default: "" }
+            {  name: 'Auth token',                value: @session.auth_token                 },
+            {  name: 'Username',                  value: params[:username]                   },
+            {  name: 'Account number',            value: params[:account_number]             },
+            {  name: 'Closed for lunch',          value: params[:closed_for_lunch]           },
+            {  name: 'Earliest time',             value: params[:earliest_time]              },
+            {  name: 'Latest time',               value: params[:latest_time]                },
+            {  name: 'Requested collection date', value: params[:requested_collection_date]  },
+            {  name: 'Special instructions',      value: params[:special_instructions],      default: "" }
           )
 
         ))).bookCollectionResult

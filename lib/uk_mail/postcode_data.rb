@@ -36,7 +36,7 @@ module UKMail
       service_next_day:         ['Next Day'],
       service_48_hour:          ['48 Hour', '72 Hour'], # TODO: 72 Hour? Really?
       service_home_am:          [], # \
-      service_home_pm:          [], #  TODO: Investigate. From email: "These are retail services - Not to be used for Domestic"
+      service_home_pm:          [], #  | - "These are retail services - Not to be used for Domestic"
       service_home_evening:     [], # /
       service_saturday:         ['Saturday'],
       service_saturday_9am:     ['Saturday 09:00'],
