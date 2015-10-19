@@ -16,6 +16,7 @@ describe UKMail::Session, '#login' do
     before { session.login(username, password) }
 
     it "has an auth token" do
+      skip # TODO: Set up VCR
       expect(session.auth_token).to be_present
     end
   end

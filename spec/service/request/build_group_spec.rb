@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe UKMail::Service, '#parameters' do
-  let(:service) { UKMail::Service::Base.new(nil) }
+describe UKMail::Service::RequestBase, '#build_group' do
+  let(:service) { UKMail::Service::ServiceBase.new(nil) }
+  let(:request) { UKMail::Service::RequestBase.new(service, nil) }
 
-  subject { service.__send__(:parameters, *args) }
+  subject { request.__send__(:build_group, *args) }
 
   context "when the args are all provided" do
     let(:args) { [
@@ -35,9 +36,9 @@ describe UKMail::Service, '#parameters' do
         { name: 'Third',  value: "" }
     ] }
 
-    it "raises an exception" do
-      message = "The following required fields are missing or empty: Second, Third"
-      expect{subject}.to raise_error(UKMail::ValidationError, message)
+    it "adds the fields to validation errors" do
+      subject
+      expect(request.validation_errors[:missing]).to eq(['Second', 'Third'])
     end
   end
 end

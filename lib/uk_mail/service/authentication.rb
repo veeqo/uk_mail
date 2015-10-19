@@ -1,8 +1,8 @@
 module UKMail
   module Service
-    class Authentication < Base
+    class Authentication < ServiceBase
       def login(params = {})
-        service.login(soap::Login.new(soap::LoginWebRequest.new(
+        soap_service.login(soap::Login.new(soap::LoginWebRequest.new(
 
           params[:password],
           params[:username]
@@ -10,14 +10,12 @@ module UKMail
         ))).loginResult
       end
 
-      protected
-
       def soap
         SoapService::Authentication
       end
 
       def soap_service
-        soap::IUKMAuthenticationService
+        @soap_service ||= soap::IUKMAuthenticationService.new
       end
     end
   end

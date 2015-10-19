@@ -8,10 +8,14 @@ require 'uk_mail/soap_service/authentication'
 require 'uk_mail/soap_service/collection'
 require 'uk_mail/soap_service/consignment'
 
-require 'uk_mail/service/base'
+require 'uk_mail/service/service_base'
+require 'uk_mail/service/request_base'
+
 require 'uk_mail/service/authentication'
 require 'uk_mail/service/collection'
+require 'uk_mail/service/collection/book_collection_request'
 require 'uk_mail/service/consignment'
+require 'uk_mail/service/consignment/add_domestic_consignment_request'
 
 module UKMail
   def self.configure(&block)
