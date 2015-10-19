@@ -16,6 +16,8 @@ require 'uk_mail/service/collection'
 require 'uk_mail/service/collection/book_collection_request'
 require 'uk_mail/service/consignment'
 require 'uk_mail/service/consignment/add_domestic_consignment_request'
+require 'uk_mail/service/consignment/add_international_consignment_request'
+require 'uk_mail/service/consignment/add_packets_consignment_request'
 
 module UKMail
   def self.configure(&block)

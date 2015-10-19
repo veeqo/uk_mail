@@ -30,7 +30,7 @@ module UKMail
       end
 
       def add_validation_error(type, name)
-        (validation_errors[type] ||= []) << name
+        (@validation_errors[type] ||= []) << name
       end
 
       def is_blank?(var)
