@@ -59,7 +59,7 @@ module UKMail
       end
 
       if row_array.nil?
-        raise(RuntimeError, "Postcode '#{postcode.to_s.upcase}' is not supported.")
+        raise(UKMail::ServiceError, "Postcode '#{postcode.to_s.upcase}' is not supported.")
       end
 
       Row.new(row_array)

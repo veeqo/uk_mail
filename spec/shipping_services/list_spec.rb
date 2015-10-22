@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe UKMail::ShippingServices, '#list' do
+describe UKMail::DomesticServices, '#list' do
   let(:postcode) { 'AB31 3DP' }
   let(:delivery_type) { '' }
 
-  subject { UKMail::ShippingServices.list(parcel_type, delivery_type, postcode) }
+  subject { UKMail::DomesticServices.list(parcel_type, delivery_type, postcode) }
 
   context "when the parcel type doesn't exist" do
     let(:parcel_type) { 'arglebargle' }
 
     it "raises an exception" do
-      expect{subject}.to raise_error(RuntimeError)
+      expect{subject}.to raise_error(UKMail::ServiceError)
     end
   end
 
@@ -21,7 +21,7 @@ describe UKMail::ShippingServices, '#list' do
       let(:delivery_type) { 'foofaraw' }
 
       it "raises an exception" do
-        expect{subject}.to raise_error(RuntimeError)
+        expect{subject}.to raise_error(UKMail::ServiceError)
       end
     end
 
@@ -32,10 +32,10 @@ describe UKMail::ShippingServices, '#list' do
         expect(subject.length).to eq(4)
 
         expected_services = [
-          UKMail::ShippingServices::ShippingService.new('Next Day', 30),
-          UKMail::ShippingServices::ShippingService.new('Afternoon', 253),
-          UKMail::ShippingServices::ShippingService.new('Evening', 254),
-          UKMail::ShippingServices::ShippingService.new('48 Hour', 48)
+          UKMail::DomesticServices::DomesticService.new('Next Day', 30),
+          UKMail::DomesticServices::DomesticService.new('Afternoon', 253),
+          UKMail::DomesticServices::DomesticService.new('Evening', 254),
+          UKMail::DomesticServices::DomesticService.new('48 Hour', 48)
         ]
 
         expected_services.each do |expected_service|

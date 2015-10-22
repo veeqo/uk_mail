@@ -15,7 +15,7 @@ describe UKMail::PostcodeData, '#row_from_postcode' do
     let(:postcode) { 'XY987XY' }
 
     it "raises an exception" do
-      expect{subject}.to raise_error(RuntimeError)
+      expect{subject}.to raise_error(UKMail::ServiceError)
     end
   end
 end

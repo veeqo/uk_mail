@@ -1,7 +1,7 @@
 require 'yaml'
 
 module UKMail
-  module ShippingServices
+  module DomesticServices
 
     # TODO: Messy. Move to class and have service_data as a variable.
 
@@ -10,7 +10,7 @@ module UKMail
       services = service_data['services'][parcel_type]
 
       if services.nil?
-        raise(RuntimeError, "Parcel type '#{parcel_type.to_s}' is not supported.")
+        raise(UKMail::ServiceError, "Parcel type '#{parcel_type.to_s}' is not supported.")
       end
 
       negated = PostcodeData.row_from_postcode(postcode).negated_services
@@ -20,7 +20,7 @@ module UKMail
         next if negated.include?(key)
         service_id = val[service_index(service_data, delivery_type)]
         next if service_id.nil?
-        result << ShippingService.new(key, service_id)
+        result << DomesticService.new(key, service_id)
       end
       result
     end
@@ -34,7 +34,7 @@ module UKMail
     def self.service_index(service_data, delivery_type)
       index = service_data['delivery_types'].index(delivery_type)
       if index.nil?
-        raise(RuntimeError, "Delivery type '#{delivery_type}' is not supported.")
+        raise(UKMail::ServiceError, "Delivery type '#{delivery_type}' is not supported.")
       end
       index
     end
@@ -43,7 +43,7 @@ module UKMail
       YAML.load_file(UKMail.config.service_data_path)
     end
 
-    class ShippingService
+    class DomesticService
       attr_accessor :name
       attr_accessor :id
 
