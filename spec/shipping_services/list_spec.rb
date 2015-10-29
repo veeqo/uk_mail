@@ -41,7 +41,7 @@ describe UKMail::DomesticServices, '#list' do
         expected_services.each do |expected_service|
           exists = subject.any? do |returned_service|
             returned_service.name == expected_service.name &&
-            returned_service.id == expected_service.id
+            returned_service.key == expected_service.key
           end
           expect(exists).to be_truthy
         end

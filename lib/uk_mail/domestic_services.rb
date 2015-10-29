@@ -2,9 +2,6 @@ require 'yaml'
 
 module UKMail
   module DomesticServices
-
-    # TODO: Messy. Move to class and have service_data as a variable.
-
     def self.list(parcel_type, delivery_type, postcode)
       service_data = load_service_data
       services = service_data['services'][parcel_type]
@@ -15,14 +12,12 @@ module UKMail
 
       negated = PostcodeData.row_from_postcode(postcode).negated_services
 
-      result = []
-      services.each do |key,val|
-        next if negated.include?(key)
+      services.map do |key,val|
+        next nil if negated.include?(key)
         service_id = val[service_index(service_data, delivery_type)]
-        next if service_id.nil?
-        result << DomesticService.new(key, service_id)
-      end
-      result
+        next nil if service_id.nil?
+        DomesticService.new(key, service_id)
+      end.compact
     end
 
     def self.api_version
@@ -45,11 +40,11 @@ module UKMail
 
     class DomesticService
       attr_accessor :name
-      attr_accessor :id
+      attr_accessor :key
 
-      def initialize(name, id)
+      def initialize(name, key)
         @name = name
-        @id = id
+        @key = key
       end
     end
   end
