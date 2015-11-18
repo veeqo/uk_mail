@@ -5,4 +5,6 @@ module UKMail
   end
   class ServiceError < StandardError
   end
+  class UKMailError < StandardError
+  end
 end

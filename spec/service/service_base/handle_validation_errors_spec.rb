@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe UKMail::Service::ServiceBase, '#check_and_raise_errors' do
+describe UKMail::Service::ServiceBase, '#handle_validation_errors' do
   let(:service) { UKMail::Service::ServiceBase.new(nil) }
 
-  subject { service.__send__(:check_and_raise_errors, validation_errors) }
+  subject { service.__send__(:handle_validation_errors, validation_errors) }
 
   context "when there are no errors" do
     let(:validation_errors) { {} }
