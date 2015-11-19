@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://qa-api.ukmail.com/Services/UKMCollectionServices/UKMCollectionService.svc
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="utf-8" ?>
+        <env:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+          <env:Body>
+            <n1:BookCollection xmlns:n1="http://www.UKMail.com/Services/Contracts/ServiceContracts">
+              <n1:request xmlns:n2="http://www.UKMail.com/Services/Contracts/DataContracts"
+                  xsi:type="n2:AddCollectionWebRequest">
+                <n2:AuthenticationToken>DD43A924-62C0-49E9-84E5-F4106E2E02B1</n2:AuthenticationToken>
+                <n2:Username>luke@veeqo.com</n2:Username>
+                <n2:AccountNumber>E080389</n2:AccountNumber>
+                <n2:ClosedForLunch>false</n2:ClosedForLunch>
+                <n2:EarliestTime>2015-11-19T09:00:00.000</n2:EarliestTime>
+                <n2:LatestTime>2015-11-19T11:30:00.000</n2:LatestTime>
+                <n2:RequestedCollectionDate>2015-11-19T10:30:00.000</n2:RequestedCollectionDate>
+                <n2:SpecialInstructions></n2:SpecialInstructions>
+              </n1:request>
+            </n1:BookCollection>
+          </env:Body>
+        </env:Envelope>
+    headers:
+      Content-Type:
+      - text/xml; charset=utf-8
+      Soapaction:
+      - '"http://www.UKMail.com/Services/IUKMCollectionService/BookCollection"'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 19 Nov 2015 13:49:34 GMT
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '546'
+    body:
+      encoding: UTF-8
+      string: <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><BookCollectionResponse
+        xmlns="http://www.UKMail.com/Services/Contracts/ServiceContracts"><BookCollectionResult
+        xmlns:a="http://www.UKMail.com/Services/Contracts/DataContracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><a:Errors/><a:Result>Successful</a:Result><a:Warnings/><a:BookingMessage>Collection
+        already booked.</a:BookingMessage><a:CollectionJobNumber>GL47423760</a:CollectionJobNumber></BookCollectionResult></BookCollectionResponse></s:Body></s:Envelope>
+    http_version: 
+  recorded_at: Thu, 19 Nov 2015 13:49:33 GMT
+recorded_with: VCR 2.9.3

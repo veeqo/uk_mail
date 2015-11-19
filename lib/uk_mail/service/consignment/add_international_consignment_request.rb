@@ -4,7 +4,7 @@ module UKMail
       class AddInternationalConsignmentRequest < RequestBase
         def get_response
           soap_service.addInternationalConsignment(soap::AddInternationalConsignment.new(soap::AddInternationalConsignmentWebRequest.new(
-            *validated_parameters
+            *@validated_parameters
           ))).addInternationalConsignmentResult
         end
 

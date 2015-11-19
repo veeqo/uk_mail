@@ -34,7 +34,12 @@ module UKMail
       end
 
       def is_blank?(var)
+        return false if var.is_a?(FalseClass)
         var.respond_to?(:empty?) ? !!var.empty? : !var
+      end
+
+      def format_date(date)
+        date.utc.strftime("%Y-%m-%dT%H:%M:%S.%L")
       end
 
       def soap

@@ -4,7 +4,7 @@ module UKMail
       class AddPacketsConsignmentRequest < RequestBase
         def get_response
           soap_service.addPacketConsignment(soap::AddPacketConsignment.new(soap::AddPacketConsignmentWebRequest.new(
-            *validated_parameters
+            *@validated_parameters
           ))).addPacketConsignmentResult
         end
 
