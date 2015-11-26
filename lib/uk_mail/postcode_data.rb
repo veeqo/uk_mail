@@ -49,9 +49,9 @@ module UKMail
     end
 
     def self.row_from_postcode(postcode)
+      postcode = postcode.to_s
       postcode_key = postcode_as_key(postcode)
       postcode_index = column_index(:postcode)
-      path = UKMail.config.postcode_data_path
 
       # TODO: This can be much faster (the list is sorted by postcode)
       row_array = CSV.foreach(path, col_sep: '|') do |row|
@@ -59,7 +59,20 @@ module UKMail
       end
 
       if row_array.nil?
-        raise(UKMail::ServiceError, "Postcode '#{postcode.to_s.upcase}' is not supported.")
+        raise(UKMail::ServiceError, "Postcode '#{postcode.upcase}' is not supported.")
+      end
+
+      Row.new(row_array)
+    end
+
+    def self.row_from_county(county)
+      county = county.to_s
+      row_array = CSV.foreach(path, col_sep: '|') do |row|
+        break row if row[column_index(:county)].upcase.strip == county.upcase.strip
+      end
+
+      if row_array.nil?
+        raise(UKMail::ServiceError,  "County '#{county}' is not supported.")
       end
 
       Row.new(row_array)
@@ -69,6 +82,10 @@ module UKMail
       postcode = postcode.delete(' ').upcase
       inner = postcode.length < 5 ? ' ' : postcode.slice!(-3,3)[0]
       postcode[0..3].ljust(4,' ') + inner
+    end
+
+    def self.path
+      UKMail.config.postcode_data_path
     end
 
     class Row

@@ -29,8 +29,12 @@ module UKMail
         args
       end
 
-      def add_validation_error(type, name)
-        (@validation_errors[type] ||= []) << name
+      def add_validation_error(type, message)
+        (@validation_errors[type] ||= []) << message
+      end
+
+      def clear_validation_errors
+        @validation_errors = {}
       end
 
       def is_blank?(var)

@@ -2,6 +2,13 @@ module UKMail
   module Service
     class Consignment
       class AddDomesticConsignmentRequest < RequestBase
+        IRELAND_COUNTY_PREFIXES = %w[County Cnty CC. CC Ct. Ct Co. Co C.]
+        IRELAND_COUNTIES = %w[
+          Carlow Cavan Clare Cork Donegal Dublin Galway Kerry Kildare Kilkenny Laois Leitrim
+          Limerick Longford Louth Mayo Meath Monaghan Offaly Roscommon Sligo Tipperary Waterford
+          Westmeath Wexford Wicklow
+        ]
+
         def get_response
           soap_service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddDomesticConsignmentWebRequest.new(
             *@validated_parameters
@@ -23,9 +30,9 @@ module UKMail
                 {  name: 'Address line 2',            value: params[:address][:address_2],       default: ''  },
                 {  name: 'Address line 3',            value: params[:address][:address_3],       default: ''  },
                 {  name: 'Address country code',      value: params[:address][:country_code]                  },
-                {  name: 'Address county',            value: params[:address][:county],          default: ''  },
+                {  name: 'Address county',            value: build_county,                       default: ''  },
                 {  name: 'Address postal town',       value: params[:address][:postal_town]                   },
-                {  name: 'Address postcode',          value: params[:address][:postcode]                      }
+                {  name: 'Address postcode',          value: build_postcode                                   }
               )
             ),
             *build_group(
@@ -55,6 +62,58 @@ module UKMail
               {  name: 'Signature optional',          value: params[:signature_optional]                      }
             )
           ]
+        end
+
+        def build_county
+          ireland? ? ireland_county : params_county
+        end
+
+        def build_postcode
+          ireland ? ireland_postcode : params_postcode
+        end
+
+        def ireland_county
+          @ireland_county ||=
+          params_county.strip.downcase.tap do |county|
+            IRELAND_COUNTY_PREFIXES.each do |prefix|
+              county.gsub!(/^#{Regexp.escape(prefix.downcase)} /i, '')
+            end
+            county.capitalize!
+            unless IRELAND_COUNTIES.include?(county)
+              add_validation_error(:other, "'#{county}' is not a valid Ireland county.")
+            end
+          end
+        end
+
+        def ireland_postcode
+          if ireland_county == 'Dublin'
+            dublin_postcode.tap do |postcode|
+              add_validation_error(:other, "'#{params_postcode}' is not a valid Dublin postcode.") if postcode.nil?
+            end
+          else
+            PostcodeData.row_from_county(ireland_county).postcode.tap do |postcode|
+              postcode.strip!
+              add_validation_error(:other, "Cannot determine postcode for Ireland county '#{ireland_county}'.") if postcode.nil?
+            end
+          end
+        end
+
+        def dublin_postcode
+          if match = /^(D|DUBLIN)? *(\d+)$/.match(params_postcode.upcase.strip)
+            'D' + match.captures[1].to_i.to_s
+          end
+        end
+
+        def ireland?
+          params[:address][:country_code] == 'IRL'
+        end
+
+        def params_county
+          params[:address][:county].to_s
+        end
+
+        def params_postcode
+          params[:address][:postcode].to_s
         end
       end
     end
