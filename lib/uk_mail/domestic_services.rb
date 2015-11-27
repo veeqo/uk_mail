@@ -2,12 +2,19 @@ require 'yaml'
 
 module UKMail
   module DomesticServices
-    def self.list(parcel_type, delivery_type, postcode)
+    def self.list(parcel_type, delivery_type, country, county, postcode)
       service_data = load_service_data
       services = service_data['services'][parcel_type]
 
       if services.nil?
         raise(UKMail::ServiceError, "Parcel type '#{parcel_type.to_s}' is not supported.")
+      end
+
+      if country && ['IE','IRL','IRELAND'].include?(country.upcase)
+        postcode = IrelandData.new(county, postcode).ireland_postcode
+        if postcode.nil?
+          raise(UKMail::ServiceError, "Ireland County and/or Postcode are invalid.")
+        end
       end
 
       negated = PostcodeData.row_from_postcode(postcode).negated_services

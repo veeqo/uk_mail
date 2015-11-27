@@ -69,39 +69,23 @@ module UKMail
         end
 
         def build_postcode
-          ireland ? ireland_postcode : params_postcode
+          ireland? ? ireland_postcode : params_postcode
         end
 
         def ireland_county
-          @ireland_county ||=
-          params_county.strip.downcase.tap do |county|
-            IRELAND_COUNTY_PREFIXES.each do |prefix|
-              county.gsub!(/^#{Regexp.escape(prefix.downcase)} /i, '')
-            end
-            county.capitalize!
-            unless IRELAND_COUNTIES.include?(county)
-              add_validation_error(:other, "'#{county}' is not a valid Ireland county.")
-            end
+          ireland_data.ireland_county.tap do |county|
+            add_validation_error(:other, "'#{county}' is not a valid Ireland county.") if county.nil?
           end
         end
 
         def ireland_postcode
-          if ireland_county == 'Dublin'
-            dublin_postcode.tap do |postcode|
-              add_validation_error(:other, "'#{params_postcode}' is not a valid Dublin postcode.") if postcode.nil?
-            end
-          else
-            PostcodeData.row_from_county(ireland_county).postcode.tap do |postcode|
-              postcode.strip!
-              add_validation_error(:other, "Cannot determine postcode for Ireland county '#{ireland_county}'.") if postcode.nil?
-            end
+          ireland_data.ireland_postcode.tap do |postcode|
+            add_validation_error(:other, "#{params_postcode} is not a valid Dublin postcode.") if postcode.nil?
           end
         end
 
-        def dublin_postcode
-          if match = /^(D|DUBLIN)? *(\d+)$/.match(params_postcode.upcase.strip)
-            'D' + match.captures[1].to_i.to_s
-          end
+        def ireland_data
+          @ireland_data ||= IrelandData.new(params_county, params_postcode)
         end
 
         def ireland?

@@ -3,6 +3,7 @@ require 'uk_mail/exceptions'
 require 'uk_mail/session'
 require 'uk_mail/domestic_services'
 require 'uk_mail/postcode_data'
+require 'uk_mail/ireland_data'
 
 require 'uk_mail/soap_service/authentication'
 require 'uk_mail/soap_service/collection'
