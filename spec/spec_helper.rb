@@ -1,5 +1,5 @@
 require 'vcr'
-require 'webmock'
+require 'webmock/rspec'
 require 'uk_mail'
 
 spec_path = File.dirname(__FILE__) + '/'
