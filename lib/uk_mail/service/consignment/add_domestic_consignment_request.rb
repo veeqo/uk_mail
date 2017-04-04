@@ -59,7 +59,7 @@ module UKMail
               {  name: 'Pre-delivery notification',   value: params[:pre_delivery_notification]               },
               {  name: 'Secure location line 1',      value: params[:secure_location_1],         default: ''  },
               {  name: 'Secure location line 2',      value: params[:secure_location_2],         default: ''  },
-              {  name: 'Signature optional',          value: params[:signature_optional]                      }
+              {  name: 'Signature optional',          value: signature_optional?                              }
             )
           ]
         end
@@ -98,6 +98,16 @@ module UKMail
 
         def params_postcode
           params[:address][:postcode].to_s
+        end
+
+        def signature_optional?
+          signature_optional_by_key = DomesticServices.signature_optional_for_service_key(params[:service_key])
+
+          if signature_optional_by_key.nil?
+            params[:signature_optional]
+          else
+            signature_optional_by_key
+          end
         end
       end
     end

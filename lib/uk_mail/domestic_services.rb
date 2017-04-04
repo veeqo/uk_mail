@@ -21,7 +21,7 @@ module UKMail
 
       services.map do |key,val|
         next nil if negated.include?(key)
-        service_id = val[service_index(service_data, delivery_type)]
+        service_id = val[index_for_delivery_type(service_data, delivery_type)]
         next nil if service_id.nil?
         DomesticService.new(key, service_id)
       end.compact
@@ -31,10 +31,25 @@ module UKMail
       load_service_data['version']
     end
 
+    def self.signature_optional_for_service_key(service_key)
+      if service_key.nil?
+        raise(UKMail::ServiceError, "Service key is required.")
+      end
+
+      service_data = load_service_data
+      index = index_for_service_key(service_data, service_key)
+
+      if index.nil?
+        raise(UKMail::ServiceError, "Service key '#{service_key}' is not supported.")
+      end
+
+      service_data['delivery_types'][index]['signature_optional']
+    end
+
     private
 
-    def self.service_index(service_data, delivery_type)
-      index = service_data['delivery_types'].index(delivery_type)
+    def self.index_for_delivery_type(service_data, delivery_type)
+      index = service_data['delivery_types'].index{ |dt| dt['name'] == delivery_type }
       if index.nil?
         raise(UKMail::ServiceError, "Delivery type '#{delivery_type}' is not supported.")
       end
@@ -43,6 +58,15 @@ module UKMail
 
     def self.load_service_data
       YAML.load_file(UKMail.config.service_data_path)
+    end
+
+    def self.index_for_service_key(service_data, service_key)
+      all_services = service_data['services'].map{ |k,v| v.map{ |k,v| v } }.reduce(:+)
+      all_services.each do |service_group|
+        index = service_group.index(service_key)
+        return index unless index.nil?
+      end
+      nil
     end
 
     class DomesticService

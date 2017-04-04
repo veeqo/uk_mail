@@ -1,9 +1,15 @@
 version: '1.20'
 
 delivery_types:
-- 'Signature Service to the specified address & neighbour'
-- 'Signature Service to the specified address only'
-- 'Leave Safe at specified address or signature service to neighbour'
+-
+  name: 'Signature Service to the specified address & neighbour'
+  signature_optional: false
+-
+  name: 'Signature Service to the specified address only'
+  signature_optional: false
+-
+  name: 'Leave Safe at specified address or signature service to neighbour'
+  signature_optional: ~
 
 services:
   'Parcels':
