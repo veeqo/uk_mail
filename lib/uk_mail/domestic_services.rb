@@ -3,7 +3,6 @@ require 'yaml'
 module UKMail
   module DomesticServices
     def self.list(parcel_type, delivery_type, country, county, postcode)
-      service_data = load_service_data
       services = service_data['services'][parcel_type]
 
       if services.nil?
@@ -27,8 +26,20 @@ module UKMail
       end.compact
     end
 
+    def self.all_service_names
+      service_data['services'].flat_map{|k,v| v.keys }.uniq
+    end
+
+    def self.all_parcel_types
+      service_data['services'].keys
+    end
+
+    def self.all_delivery_types
+      service_data['delivery_types'].map{|delivery_type| delivery_type['name'] }.uniq
+    end
+
     def self.api_version
-      load_service_data['version']
+      service_data['version']
     end
 
     def self.signature_optional_for_service_key(service_key)
@@ -36,7 +47,6 @@ module UKMail
         raise(UKMail::ServiceError, "Service key is required.")
       end
 
-      service_data = load_service_data
       index = index_for_service_key(service_data, service_key)
 
       if index.nil?
@@ -56,8 +66,8 @@ module UKMail
       index
     end
 
-    def self.load_service_data
-      YAML.load_file(UKMail.config.service_data_path)
+    def self.service_data
+      @service_data ||= YAML.load_file(UKMail.config.service_data_path)
     end
 
     def self.index_for_service_key(service_data, service_key)
