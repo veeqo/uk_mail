@@ -28,7 +28,8 @@ module UKMail
       if ireland_county == 'Dublin'
         dublin_postcode
       else
-        PostcodeData.row_from_county(ireland_county).postcode.strip
+        row = PostcodeData.row_from_county(ireland_county)
+        row.nil? ? nil : row.postcode.strip
       end
     end
 

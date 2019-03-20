@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe UKMail::PostcodeData, '#ireland_postcode' do
-  let(:ireland_data) { UKMail::IrelandData.new(county, postcode) }
+describe UKMail::IrelandData, '#ireland_postcode' do
+  let(:ireland_data) { described_class.new(county, postcode) }
 
   subject { ireland_data.ireland_postcode }
 
@@ -13,9 +13,7 @@ describe UKMail::PostcodeData, '#ireland_postcode' do
     let(:county) { 'notrealcounty' }
     let(:postcode) { nil }
 
-    it 'raises an error' do
-      expect{subject}.to raise_error(UKMail::ServiceError)
-    end
+    it { is_expected.to eq(nil) }
   end
 
   context 'when the county exists but is not Dublin' do

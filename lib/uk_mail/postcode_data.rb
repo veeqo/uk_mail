@@ -53,9 +53,14 @@ module UKMail
       postcode_key = postcode_as_key(postcode)
       postcode_index = column_index(:postcode)
 
-      # TODO: This can be much faster (the list is sorted by postcode)
-      row_array = CSV.foreach(path, col_sep: '|') do |row|
-        break row if row[postcode_index] == postcode_key
+      csv = CSV.open(path, col_sep: '|')
+
+      row_array = csv.find { |row| row[postcode_index] == postcode_key }
+
+      if row_array.nil?
+        csv.rewind
+        postcode_key_without_sector = postcode_as_key(postcode, with_sector: false)
+        row_array ||= csv.find { |row| row[postcode_index] == postcode_key_without_sector }
       end
 
       if row_array.nil?
@@ -66,22 +71,24 @@ module UKMail
     end
 
     def self.row_from_county(county)
-      county = county.to_s
+      county = county.to_s.strip
+
+      return nil if county == ''
+
       row_array = CSV.foreach(path, col_sep: '|') do |row|
-        break row if row[column_index(:county)].upcase.strip == county.upcase.strip
+        break row if row[column_index(:county)].upcase.strip == county.upcase
       end
 
-      if row_array.nil?
-        raise(UKMail::ServiceError,  "County '#{county}' is not supported.")
-      end
+      return nil if row_array.nil?
 
       Row.new(row_array)
     end
 
-    def self.postcode_as_key(postcode)
+    def self.postcode_as_key(postcode, with_sector: true)
       postcode = postcode.delete(' ').upcase
-      inner = postcode.length < 5 ? ' ' : postcode.slice!(-3,3)[0]
-      postcode[0..3].ljust(4,' ') + inner
+      sector = postcode.length < 5 ? ' ' : postcode.slice!(-3,3)[0]
+      outer = postcode[0..3].ljust(4, ' ')
+      outer + (with_sector ? sector : ' ')
     end
 
     def self.path
