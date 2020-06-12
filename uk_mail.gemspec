@@ -15,7 +15,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rubyjedi-soap4r", "~> 2.0.2.1"
+  spec.add_dependency "soap4r-ng", "~> 2.0.4"
+  spec.add_dependency "httpclient", "~> 2.6"
+  spec.add_dependency "logger-application", "~> 0.0.2"
 
   spec.add_development_dependency "vcr", "~> 3.0.1"
   spec.add_development_dependency "webmock", "~> 2.0.0"
