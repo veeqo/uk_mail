@@ -17,7 +17,7 @@ describe UKMail::DomesticServices, '#list' do
   end
 
   context "when the parcel type exists" do
-    let(:parcel_type) { 'Bagit Medium' }
+    let(:parcel_type) { 'Parcels' }
 
     context "when the delivery type doesn't exist" do
       let(:delivery_type) { 'foofaraw' }
@@ -46,10 +46,8 @@ describe UKMail::DomesticServices, '#list' do
       context "when the country is not Ireland" do
         let(:country) { 'GBR' }
         let(:expected_services) { [
-          UKMail::DomesticServices::DomesticService.new('Next Day', 30),
-          UKMail::DomesticServices::DomesticService.new('Afternoon', 253),
-          UKMail::DomesticServices::DomesticService.new('Evening', 254),
-          UKMail::DomesticServices::DomesticService.new('48 Hour', 48)
+          UKMail::DomesticServices::DomesticService.new('Next Day', 1),
+          UKMail::DomesticServices::DomesticService.new('48 Hour', 48),
         ] }
 
         it_behaves_like 'expected result'
@@ -69,8 +67,6 @@ describe UKMail::DomesticServices, '#list' do
         context "when the county is valid" do
           let(:county) { 'waterford' }
           let(:expected_services) { [
-            UKMail::DomesticServices::DomesticService.new('Afternoon', 253),
-            UKMail::DomesticServices::DomesticService.new('Evening', 254),
             UKMail::DomesticServices::DomesticService.new('48 Hour', 48)
           ] }
 
