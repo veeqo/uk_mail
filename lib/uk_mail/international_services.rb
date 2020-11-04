@@ -1,5 +1,3 @@
-require 'byebug'
-
 module UKMail
   module InternationalServices
     def self.list(params)

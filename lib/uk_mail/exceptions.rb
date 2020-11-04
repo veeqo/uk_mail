@@ -7,4 +7,6 @@ module UKMail
   end
   class UKMailError < StandardError
   end
+  class AuthTokenError < StandardError
+  end
 end

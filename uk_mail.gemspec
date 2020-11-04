@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httpclient", "~> 2.6"
   spec.add_dependency "logger-application", "~> 0.0.2"
 
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "byebug"
   spec.add_development_dependency "vcr", "~> 3.0.1"
   spec.add_development_dependency "webmock", "~> 2.0.0"
 end

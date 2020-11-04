@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://services.qa.dhlparcel.co.uk/v3/internationalconsignment/internationalconsignment
+    body:
+      encoding: UTF-8
+      string: '{"userName":"TEST_USERNAME","authenticationToken":"expired_token","accountNumber":"K806570","collectionInfo":{"collectionJobNumber":"MK449040608","collectionDate":"2020-11-06"},"delivery":{"localContactName":"John
+        Smith","localContactNumber":"01234 567890","contactNumberType":"mobile","localContactEmail":"johnsmith@example.com","deliveryAddresses":[{"businessName":null,"address1":"Josef-Dey-Weg
+        36","address2":null,"address3":null,"postalTown":"Frankfurt","County":"Hesse","zipcode":"65929","countryCode":"DEU","addressType":"doorstep","servicePointId":null}]},"serviceKey":"204","items":1,"customerReference":null,"alternativeReference":null,"parcels":[{"length":20,"width":15,"height":10,"weight":"1.50"}],"extendedCoverRequired":false,"customsDeclaration":{"full":{"invoiceType":"commercial","invoiceNumber":"G2389-121","invoiceDate":"2020-11-04","articles":{"article":[{"commodityCode":"84733092","goodsDescription":"Computer
+        parts","quantity":1,"unitValue":"56.20","unitWeight":"1.50","countryofManufacture":"USA"}]},"totalArticles":1,"shippingCharges":12,"totalValue":"56.20","currencyCode":"GBP","reasonForExport":"commercial
+        sale","termsOfDelivery":"DAP"}},"recipient":{"contactName":"John Smith","contactEmail":"johnsmith@exmaple.com","contactNumber":"01234
+        567890","taxReference":null,"recipientAddress":{"businessName":null,"address1":"Josef-Dey-Weg
+        36","address2":null,"address3":null,"postalTown":"Frankfurt","County":"Hesse","zipcode":"65929","countryCode":"DEU","addressType":"residential"}},"inBoxReturn":false,"inBoxReturnDetail":null,"InvoiceRequired":false,"LabelFormat":"PNG6x4"}'
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.8.3, ruby 2.5.5 (2019-03-15))
+      Accept:
+      - "*/*"
+      Date:
+      - Wed, 04 Nov 2020 02:10:39 GMT
+      X-Api-Key:
+      - TEST_API_KEY
+      Content-Type:
+      - application/json; charset=utf-8
+  response:
+    status:
+      code: 401
+      message: 'com.wm.net.NetException: [ISC.0064.9314] Authorization Required: Unauthorized'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - HTTPClient/1.0 (2.8.3, ruby 2.5.5 (2019-03-15))
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version:
+  recorded_at: Wed, 04 Nov 2020 02:10:40 GMT
+recorded_with: VCR 3.0.1
