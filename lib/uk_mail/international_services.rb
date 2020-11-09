@@ -29,7 +29,8 @@ module UKMail
         return JSON.parse(response.body).map do |response_service|
           InternationalService.new(
             response_service['ProductDescription'],
-            response_service['ProductCode']
+            response_service['ProductCode'],
+            response_service['BusinessUnitCode']
           )
         end
       end
@@ -49,10 +50,12 @@ module UKMail
     class InternationalService
       attr_accessor :name
       attr_accessor :key
+      attr_accessor :business_unit_code
 
-      def initialize(name, key)
+      def initialize(name, key, business_unit_code)
         @name = name
         @key = key
+        @business_unit_code = business_unit_code
       end
     end
   end

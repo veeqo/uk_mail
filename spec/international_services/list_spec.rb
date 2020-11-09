@@ -27,6 +27,7 @@ describe UKMail::InternationalServices, '.list' do
       expect(subject[0]).to be_a(UKMail::InternationalServices::InternationalService)
       expect(subject[0].name).to eq('Worldwide Air')
       expect(subject[0].key).to eq('101')
+      expect(subject[0].business_unit_code).to eq('5')
     end
   end
 
