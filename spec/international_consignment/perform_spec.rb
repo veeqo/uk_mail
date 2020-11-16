@@ -106,6 +106,7 @@ describe UKMail::InternationalConsignment, '.perform' do
 
       expect(subject.labels).to be_an(Array)
       expect(subject.labels[0]).to start_with('%PDF')
+      expect(subject.invoice).to start_with('%PDF')
     end
   end
 

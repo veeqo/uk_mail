@@ -25,7 +25,7 @@ module UKMail
 
       def make_consignment_request(request_class, params)
         response = make_request(request_class, params)
-        ConsignmentResponse.new(response.consignmentNumber, response.labels)
+        ConsignmentResponse.new(response.consignmentNumber, response.labels, nil)
       end
     end
   end

@@ -41,7 +41,9 @@ module UKMail
         Base64.decode64(label)
       end
 
-      ConsignmentResponse.new(consignment_number, labels)
+      invoice = Base64.decode64(body['documents'].to_s)
+
+      ConsignmentResponse.new(consignment_number, labels, invoice)
     end
   end
 end
