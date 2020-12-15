@@ -8,7 +8,7 @@ module UKMail
       end
 
       client = HTTPClient.new
-      client.default_header['X-Api-Key'] = UKMail.config.api_key
+      client.default_header['X-Api-Key'] = params.delete(:api_key).to_s
       client.default_header['Content-Type'] = 'application/json; charset=utf-8'
       response = client.post(url, params.to_json)
 

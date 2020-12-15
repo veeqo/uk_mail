@@ -22,7 +22,7 @@ module UKMail
       }
 
       client = HTTPClient.new
-      client.default_header['X-Api-Key'] = UKMail.config.api_key
+      client.default_header['X-Api-Key'] = params.delete(:api_key).to_s
       response = client.get(url, query)
 
       if response.status == 200

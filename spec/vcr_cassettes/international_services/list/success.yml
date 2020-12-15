@@ -8,11 +8,11 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.8.3, ruby 2.5.5 (2019-03-15))
+      - HTTPClient/1.0 (2.8.3, ruby 2.2.7 (2017-03-28))
       Accept:
       - "*/*"
       Date:
-      - Thu, 29 Oct 2020 14:45:35 GMT
+      - Tue, 15 Dec 2020 12:26:57 GMT
       X-Api-Key:
       - TEST_API_KEY
   response:
@@ -38,6 +38,6 @@ http_interactions:
       encoding: UTF-8
       string: '[{"ProductCode":"101","ProductDescription":"Worldwide Air","TransitTimeDescription":"2-3
         days","MaxTransitTime":3,"MinTransitTime":2,"Bulky":false,"BusinessUnitCode":"5","ServicePointDelivery":false,"ServicePointTypeList":[],"CustomsDeclaration":"full","SortOrder":4}]'
-    http_version:
-  recorded_at: Thu, 29 Oct 2020 14:45:37 GMT
-recorded_with: VCR 5.1.0
+    http_version: 
+  recorded_at: Tue, 15 Dec 2020 12:27:00 GMT
+recorded_with: VCR 3.0.3

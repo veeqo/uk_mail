@@ -3,12 +3,11 @@ require 'spec_helper'
 describe UKMail::InternationalServices, '.list' do
   subject { described_class.list(params) }
 
-  before { UKMail.config.api_key = api_key }
-
   let(:api_key) { ENV['TEST_API_KEY'] }
 
   let(:params) do
     {
+      api_key: api_key,
       country_code: 'USA',
       weight: 5.23,
       length: 20,

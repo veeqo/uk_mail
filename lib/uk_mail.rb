@@ -34,7 +34,6 @@ module UKMail
 
   class Configuration
     attr_accessor :env
-    attr_accessor :api_key
     attr_accessor :postcode_data_path
     attr_accessor :service_data_path
   end

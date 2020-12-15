@@ -3,14 +3,13 @@ require 'spec_helper'
 describe UKMail::InternationalConsignment, '.perform' do
   subject { described_class.perform(params) }
 
-  before { UKMail.config.api_key = api_key }
-
   let(:api_key) { ENV['TEST_API_KEY'] }
 
   let(:params) do
     {
       userName: ENV['TEST_USERNAME'],
       authenticationToken: ENV['TEST_AUTH_TOKEN'],
+      api_key: api_key,
       accountNumber: 'K806570',
       collectionInfo: {
         collectionJobNumber: 'MK449040608',
