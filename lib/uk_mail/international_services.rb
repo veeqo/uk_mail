@@ -30,7 +30,8 @@ module UKMail
           InternationalService.new(
             response_service['ProductDescription'],
             response_service['ProductCode'],
-            response_service['BusinessUnitCode']
+            response_service['BusinessUnitCode'],
+            response_service['CustomsDeclaration']
           )
         end
       end
@@ -51,11 +52,13 @@ module UKMail
       attr_accessor :name
       attr_accessor :key
       attr_accessor :business_unit_code
+      attr_accessor :customs_declaration
 
-      def initialize(name, key, business_unit_code)
+      def initialize(name, key, business_unit_code, customs_declaration)
         @name = name
         @key = key
         @business_unit_code = business_unit_code
+        @customs_declaration = customs_declaration
       end
     end
   end
