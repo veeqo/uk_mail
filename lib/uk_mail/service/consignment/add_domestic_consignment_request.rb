@@ -10,7 +10,7 @@ module UKMail
         ]
 
         def get_response
-          soap_service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddDomesticConsignmentWebRequest.new(
+          soap_service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddParcelShopDomesticConsignmentWebRequest.new(
             *@validated_parameters
           ))).addDomesticConsignmentResult
         end
