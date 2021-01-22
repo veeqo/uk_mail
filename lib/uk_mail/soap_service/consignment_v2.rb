@@ -1,0 +1,1 @@
+require 'uk_mail/soap_service/consignment_v2/UKMParcelShopConsignmentServiceDriver'
