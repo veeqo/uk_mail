@@ -1,1 +1,1 @@
-require 'uk_mail/soap_service/consignment/UKMConsignmentServiceDriver'
+require 'uk_mail/soap_service/consignment/UKMParcelShopConsignmentServiceDriver'

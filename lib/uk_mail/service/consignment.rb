@@ -18,7 +18,7 @@ module UKMail
       end
 
       def soap_service
-        @soap_service ||= soap::IUKMConsignmentService.new
+        @soap_service ||= soap::IUKMParcelShopConsignmentService.new
       end
 
       private
