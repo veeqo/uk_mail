@@ -4,9 +4,13 @@ require 'uk_mail'
 
 spec_path = File.dirname(__FILE__) + '/'
 
-UKMail.configure do |config|
-  config.env = :test
-  config.postcode_data_path = spec_path + 'fixtures/postcode_sample.dat'
+RSpec.configure do |config|
+  config.before do
+    UKMail.configure do |config|
+      config.env = :test
+      config.postcode_data_path = spec_path + 'fixtures/postcode_sample.dat'
+    end
+  end
 end
 
 VCR.configure do |config|

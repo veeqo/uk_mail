@@ -34,8 +34,16 @@ module UKMail
 
   class Configuration
     attr_accessor :env
-    attr_accessor :postcode_data_path
+    attr_writer :postcode_data_path
     attr_accessor :service_data_path
+
+    def postcode_data_path
+      if @postcode_data_path.is_a?(Proc)
+        @postcode_data_path.call
+      else
+        @postcode_data_path
+      end
+    end
   end
 
   configure do |config|
