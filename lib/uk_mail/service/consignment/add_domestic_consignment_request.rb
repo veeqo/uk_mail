@@ -10,12 +10,14 @@ module UKMail
         ]
 
         def get_response
+          puts 'get_response v1'
           soap_service.addDomesticConsignment(soap::AddDomesticConsignment.new(soap::AddParcelShopDomesticConsignmentWebRequest.new(
             *@validated_parameters
           ))).addDomesticConsignmentResult
         end
 
         def build
+          puts 'build v1'
           params[:address] ||= {}
 
           @validated_parameters = [
@@ -43,12 +45,17 @@ module UKMail
               {  name: 'Contact name',                value: params[:contact_name],              default: ''  },
               {  name: 'Customers\' reference',       value: params[:customers_ref],             default: ''  },
               {  name: 'Email',                       value: params[:email],                     default: ''  },
+              {  name: 'Height',                      value: params[:height],                    default: nil },
               {  name: 'Number of items',             value: params[:items]                                   },
+              {  name: 'Length',                      value: params[:length],                    default: nil },
+              {  name: 'Provider Code',               value: params[:provider_code],             default: ''  },
               {  name: 'Service key',                 value: params[:service_key]                             },
+              {  name: 'Service point code',          value: params[:service_point_code],        default: ''  },
               {  name: 'Special instructions line 1', value: params[:special_instructions_1],    default: ''  },
               {  name: 'Special instructions line 2', value: params[:special_instructions_2],    default: ''  },
               {  name: 'Telephone',                   value: params[:telephone],                 default: ''  },
               {  name: 'Weight',                      value: params[:weight]                                  },
+              {  name: 'Width',                       value: params[:width],                     default: nil },
               {  name: 'Book in',                     value: params[:book_in]                                 },
               {  name: 'COD amount',                  value: params[:cod_amount],                default: '0.00' },
               {  name: 'Confirmation email',          value: params[:confirmation_email],        default: ''  },

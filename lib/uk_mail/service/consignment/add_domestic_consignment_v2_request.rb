@@ -10,12 +10,14 @@ module UKMail
         ]
 
         def get_response
+          puts 'get_response v2'
           soap_service.addDomesticConsignmentV2(soap::AddDomesticConsignmentV2.new(soap::AddParcelShopDomesticConsignmentWebRequestV2.new(
             *@validated_parameters
           ))).addDomesticConsignmentV2Result
         end
 
         def build
+          puts 'build v2'
           params[:address] ||= {}
 
           @validated_parameters = [
