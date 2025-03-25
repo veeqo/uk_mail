@@ -17,6 +17,7 @@ module UKMail
 
         def build
           params[:address] ||= {}
+          include_clearance = !params[:clearance_declaration].nil?
 
           @validated_parameters = [
             *build_group(
@@ -43,6 +44,7 @@ module UKMail
               {  name: 'Contact name',                value: params[:contact_name],              default: ''  },
               {  name: 'Customers\' reference',       value: params[:customers_ref],             default: ''  },
               {  name: 'Email',                       value: params[:email],                     default: ''  },
+              {  name: 'First Mile Drop Off',         value: params[:first_mile_drop_off],       default: false },
               {  name: 'Number of items',             value: params[:items]                                   },
               {  name: 'Service key',                 value: params[:service_key]                             },
               {  name: 'Special instructions line 1', value: params[:special_instructions_1],    default: ''  },
@@ -60,8 +62,38 @@ module UKMail
               {  name: 'Secure location line 1',      value: params[:secure_location_1],         default: ''  },
               {  name: 'Secure location line 2',      value: params[:secure_location_2],         default: ''  },
               {  name: 'Signature optional',          value: signature_optional?                              }
-            )
+            ),
+            include_clearance ? soap::Clearance.new(
+              *build_group(
+                { name: 'Shipment Movement Type',   value: params[:clearance_declaration][:shipment_movement_type],   default: '' },
+                { name: 'Sender EORI Number',       value: params[:clearance_declaration][:sender_eori_number],       default: '' },
+                { name: 'Sender UKIMS Number',      value: params[:clearance_declaration][:sender_ukims_number],      default: '' },
+                { name: 'Recipient EORI Number',    value: params[:clearance_declaration][:recipient_eori_number],    default: '' },
+                { name: 'Sender Deferment Account', value: params[:clearance_declaration][:sender_deferment_account], default: '' },
+                { name: 'Recipient UKIMS Number',   value: params[:clearance_declaration][:recipient_ukims_number],   default: '' },
+                { name: 'Number Of Pieces',         value: params[:clearance_declaration][:number_of_pieces],         default: '' },
+                { name: 'Shipping Charges',         value: params[:clearance_declaration][:shipping_charges],         default: '' },
+                { name: 'Total Value',              value: params[:clearance_declaration][:total_value],              default: '' },
+                { name: 'Reason For Export',        value: params[:clearance_declaration][:reason_for_export],        default: '' },
+                { name: 'Clearance Items',          value: clearance_items,                                           default: [] }
+              )
+            ) : nil
           ]
+        end
+
+        def clearance_items
+          params[:clearance_declaration][:items].map do |item|
+            soap::ClearanceItem.new(
+              *build_group(
+                { name: 'Commodity Code',         value: item[:commodity_code],         default: '' },
+                { name: 'Goods Description',      value: item[:goods_description],      default: '' },
+                { name: 'Unit Quantity',          value: item[:unit_quantity],          default: '' },
+                { name: 'Unit Value',             value: item[:unit_value],             default: '' },
+                { name: 'Unit Weight',            value: item[:unit_weight],            default: '' },
+                { name: 'Country of Manufacture', value: item[:country_of_manufacture], default: '' }
+              )
+            )
+          end
         end
 
         def build_county
