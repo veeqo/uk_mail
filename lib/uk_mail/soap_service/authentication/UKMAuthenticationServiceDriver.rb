@@ -7,7 +7,7 @@ require 'soap/rpc/driver'
 module UKMail::SoapService::Authentication
 
 class IUKMAuthenticationService < ::SOAP::RPC::Driver
-  TEST_URL = 'https://qa-api.ukmail.com/Services/UKMAuthenticationServices/UKMAuthenticationService.svc'
+  TEST_URL = 'https://services.qa.dhlparcel.co.uk/Services/UKMAuthenticationServices/UKMAuthenticationService.svc'
   LIVE_URL = 'https://api.ukmail.com/Services/UKMAuthenticationServices/UKMAuthenticationService.svc'
 
   Methods = [

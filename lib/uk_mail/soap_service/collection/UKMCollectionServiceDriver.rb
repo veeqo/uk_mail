@@ -7,7 +7,7 @@ require 'soap/rpc/driver'
 module UKMail::SoapService::Collection
 
 class IUKMCollectionService < ::SOAP::RPC::Driver
-  TEST_URL = 'https://qa-api.ukmail.com/Services/UKMCollectionServices/UKMCollectionService.svc'
+  TEST_URL = 'https://services.qa.dhlparcel.co.uk/Services/UKMCollectionServices/UKMCollectionService.svc'
   LIVE_URL = 'https://api.ukmail.com/Services/UKMCollectionServices/UKMCollectionService.svc'
 
   Methods = [
