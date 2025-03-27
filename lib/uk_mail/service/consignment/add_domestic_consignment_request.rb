@@ -65,17 +65,17 @@ module UKMail
             ),
             include_clearance ? soap::Clearance.new(
               *build_group(
-                { name: 'Shipment Movement Type',   value: params[:clearance_declaration][:shipment_movement_type],   default: '' },
-                { name: 'Sender EORI Number',       value: params[:clearance_declaration][:sender_eori_number],       default: '' },
-                { name: 'Sender UKIMS Number',      value: params[:clearance_declaration][:sender_ukims_number],      default: '' },
-                { name: 'Recipient EORI Number',    value: params[:clearance_declaration][:recipient_eori_number],    default: '' },
-                { name: 'Sender Deferment Account', value: params[:clearance_declaration][:sender_deferment_account], default: '' },
-                { name: 'Recipient UKIMS Number',   value: params[:clearance_declaration][:recipient_ukims_number],   default: '' },
-                { name: 'Number Of Pieces',         value: params[:clearance_declaration][:number_of_pieces],         default: '' },
-                { name: 'Shipping Charges',         value: params[:clearance_declaration][:shipping_charges],         default: '' },
-                { name: 'Total Value',              value: params[:clearance_declaration][:total_value],              default: '' },
-                { name: 'Reason For Export',        value: params[:clearance_declaration][:reason_for_export],        default: '' },
-                { name: 'Clearance Items',          value: clearance_items,                                           default: [] }
+                { name: 'Shipment Movement Type',   value: params[:clearance_declaration][:shipment_movement_type],   default: nil },
+                { name: 'Sender EORI Number',       value: params[:clearance_declaration][:sender_eori_number],       default: nil },
+                { name: 'Sender UKIMS Number',      value: params[:clearance_declaration][:sender_ukims_number],      default: nil },
+                { name: 'Recipient EORI Number',    value: params[:clearance_declaration][:recipient_eori_number],    default: nil },
+                { name: 'Sender Deferment Account', value: params[:clearance_declaration][:sender_deferment_account], default: nil },
+                { name: 'Recipient UKIMS Number',   value: params[:clearance_declaration][:recipient_ukims_number],   default: nil },
+                { name: 'Number Of Pieces',         value: params[:clearance_declaration][:number_of_pieces],         default: nil },
+                { name: 'Shipping Charges',         value: params[:clearance_declaration][:shipping_charges],         default: nil },
+                { name: 'Total Value',              value: params[:clearance_declaration][:total_value],              default: nil },
+                { name: 'Reason For Export',        value: params[:clearance_declaration][:reason_for_export],        default: nil },
+                { name: 'Clearance Items',          value: clearance_items,                                           default: []  }
               )
             ) : nil
           ]
@@ -85,12 +85,12 @@ module UKMail
           params[:clearance_declaration][:items].map do |item|
             soap::ClearanceItem.new(
               *build_group(
-                { name: 'Commodity Code',         value: item[:commodity_code],         default: '' },
-                { name: 'Goods Description',      value: item[:goods_description],      default: '' },
-                { name: 'Unit Quantity',          value: item[:unit_quantity],          default: '' },
-                { name: 'Unit Value',             value: item[:unit_value],             default: '' },
-                { name: 'Unit Weight',            value: item[:unit_weight],            default: '' },
-                { name: 'Country of Manufacture', value: item[:country_of_manufacture], default: '' }
+                { name: 'Commodity Code',         value: item[:commodity_code],         default: nil },
+                { name: 'Goods Description',      value: item[:goods_description],      default: nil },
+                { name: 'Unit Quantity',          value: item[:unit_quantity],          default: nil },
+                { name: 'Unit Value',             value: item[:unit_value],             default: nil },
+                { name: 'Unit Weight',            value: item[:unit_weight],            default: nil },
+                { name: 'Country of Manufacture', value: item[:country_of_manufacture], default: nil }
               )
             )
           end
