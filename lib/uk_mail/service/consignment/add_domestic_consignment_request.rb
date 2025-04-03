@@ -66,11 +66,11 @@ module UKMail
             include_clearance ? soap::Clearance.new(
               *build_group(
                 { name: 'Shipment Movement Type',   value: params[:clearance_declaration][:shipment_movement_type],   default: nil },
-                { name: 'Sender EORI Number',       value: params[:clearance_declaration][:sender_eori_number],       default: nil },
-                { name: 'Sender UKIMS Number',      value: params[:clearance_declaration][:sender_ukims_number],      default: nil },
-                { name: 'Recipient EORI Number',    value: params[:clearance_declaration][:recipient_eori_number],    default: nil },
+                { name: 'Sender EORI Number',       value: params[:clearance_declaration][:sender_eori_id],       default: nil },
+                { name: 'Sender UKIMS Number',      value: params[:clearance_declaration][:sender_uk_ims_id],      default: nil },
+                { name: 'Recipient EORI Number',    value: params[:clearance_declaration][:recipient_eori_id],    default: nil },
                 { name: 'Sender Deferment Account', value: params[:clearance_declaration][:sender_deferment_account], default: nil },
-                { name: 'Recipient UKIMS Number',   value: params[:clearance_declaration][:recipient_ukims_number],   default: nil },
+                { name: 'Recipient UKIMS Number',   value: params[:clearance_declaration][:recipient_uk_ims_id],   default: nil },
                 { name: 'Number Of Pieces',         value: params[:clearance_declaration][:number_of_pieces],         default: nil },
                 { name: 'Shipping Charges',         value: params[:clearance_declaration][:shipping_charges],         default: nil },
                 { name: 'Total Value',              value: params[:clearance_declaration][:total_value],              default: nil },
